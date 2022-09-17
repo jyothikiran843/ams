@@ -1,0 +1,603 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'nav.html' %}
+    <form action="{% url 'schedules' %}" method="post">{% csrf_token %}
+        <h3 class="text-center">Monday</h3>
+        <div class="form-row border-bottom rounded p-4">
+            <div class="form-group col-lg-1">
+                <label for="mcn">Computer Networks</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="mcn" class="form-control" name="mcnslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="mos">Operating Systems</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="mos" class="form-control" name="mosslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="mmfds">Mathematical Fundamental for DS</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="mmfds" class="form-control" name="mmfdsslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="mse">Software Engineering</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="mse" class="form-control" name="mseslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="mdm">Data Mining</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="mdm" class="form-control" name="mdmslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="mcnl">Computer Networks Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="mcnl" class="form-control" name="mcnlslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="msel">Software Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="msel" class="form-control" name="mselslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="mel">Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="mel" class="form-control" name="melslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="mosl">Operating Systems Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="mosl" class="form-control" name="moslslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+        </div>
+        <h3 class="text-center">Tuesday</h3>
+        <div class="form-row border-bottom rounded p-4">
+            <div class="form-group col-lg-1">
+                <label for="tucn">Computer Networks</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tucn" class="form-control" name="tucnslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="tuos">Operating Systems</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tuos" class="form-control" name="tuosslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="tumfds">Mathematical Fundamental for DS</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tumfds" class="form-control" name="tumfdsslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="tuse">Software Engineering</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tuse" class="form-control" name="tuseslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="tudm">Data Mining</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tudm" class="form-control" name="tudmslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="tucnl">Computer Networks Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tucnl" class="form-control" name="tucnlslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="tusel">Software Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tusel" class="form-control" name="tuselslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="tuel">Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tuel" class="form-control" name="tuelslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="tuosl">Operating Systems Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="tuosl" class="form-control" name="tuoslslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+        </div>
+        <h3 class="text-center">Wednesday</h3>
+        <div class="form-row border-bottom rounded p-4">
+            <div class="form-group col-lg-1">
+                <label for="wcn">Computer Networks</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wcn" class="form-control" name="wcnslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="wos">Operating Systems</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wos" class="form-control" name="wosslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="wmfds">Mathematical Fundamental for DS</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wmfds" class="form-control" name="wmfdsslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="wse">Software Engineering</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wse" class="form-control" name="wseslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="wdm">Data Mining</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wdm" class="form-control" name="wdmslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="wcnl">Computer Networks Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wcnl" class="form-control" name="wcnlslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="wsel">Software Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wsel" class="form-control" name="wselslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="wel">Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wel" class="form-control" name="welslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="wosl">Operating Systems Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="wosl" class="form-control" name="woslslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+        </div>
+        <h3 class="text-center">Thursday</h3>
+        <div class="form-row border-bottom rounded p-4">
+            <div class="form-group col-lg-1">
+                <label for="thcn">Computer Networks</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thcn" class="form-control" name="thcnslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="thos">Operating Systems</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thos" class="form-control" name="thosslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="thmfds">Mathematical Fundamental for DS</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thmfds" class="form-control" name="thmfdsslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="thse">Software Engineering</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thse" class="form-control" name="thseslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="thdm">Data Mining</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thdm" class="form-control" name="thdmslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="thcnl">Computer Networks Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thcnl" class="form-control" name="thcnlslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="thsel">Software Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thsel" class="form-control" name="thselslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="thel">Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thel" class="form-control" name="thelslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="thosl">Operating Systems Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="thosl" class="form-control" name="thoslslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+        </div>
+        <h3 class="text-center">Friday</h3>
+        <div class="form-row border-bottom rounded p-4">
+            <div class="form-group col-lg-1">
+                <label for="fcn">Computer Networks</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fcn" class="form-control" name="fcnslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="fos">Operating Systems</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fos" class="form-control" name="fosslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="fmfds">Mathematical Fundamental for DS</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fmfds" class="form-control" name="fmfdsslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="fse">Software Engineering</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fse" class="form-control" name="fseslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="fdm">Data Mining</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fdm" class="form-control" name="fdmslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="fcnl">Computer Networks Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fcnl" class="form-control" name="fcnlslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="fsel">Software Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fsel" class="form-control" name="fselslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="fel">Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fel" class="form-control" name="felslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="fosl">Operating Systems Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="fosl" class="form-control" name="foslslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+        </div>
+        <h3 class="text-center">Saturday</h3>
+        <div class="form-row border-bottom rounded p-4">
+            <div class="form-group col-lg-1">
+                <label for="scn">Computer Networks</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="scn" class="form-control" name="scnslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="sos">Operating Systems</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="sos" class="form-control" name="sosslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="smfds">Mathematical Fundamental for DS</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="smfds" class="form-control" name="smfdsslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="sse">Software Engineering</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="sse" class="form-control" name="sseslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="sdm">Data Mining</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="sdm" class="form-control" name="sdmslot">
+                    <option value="0">No slot</option>
+                    <option value="1">Slot-1</option>
+                    <option value="2">Slot-2</option>
+                    <option value="3">Slot-3</option>
+                    <option value="4">Slot-4</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="scnl">Computer Networks Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="scnl" class="form-control" name="scnlslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="ssel">Software Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="ssel" class="form-control" name="sselslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="sel">Eng Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="sel" class="form-control" name="selslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-1">
+                <label for="sosl">Operating Systems Lab</label>
+            </div>
+            <div class="form-group col-lg-1">
+                <select id="sosl" class="form-control" name="soslslot">
+                    <option value="0">No slot</option>
+                    <option value="5">Noon slot</option>
+                </select>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary fixed-bottom" value="Update/Add" name="timetable">
+    </form>
+    <script src="{% static 'js/schedule.js' %}"></script>
+{% endblock %}

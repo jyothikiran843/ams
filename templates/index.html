@@ -2,14 +2,15 @@
 {% load static %}
 {% block content %}
 <body>
+    {% include 'nav.html' %}
     <h1 class="text-center">Enter ID</h1>
-    <form action="{% url 'main' %}" method="post">{% csrf_token %}
+    <form onsubmit="return verifyid()" action="{% url 'main' %}" method="post">{% csrf_token %}
         <div class="form-row">
             <div class="form-group col-sm-4">
             </div>
             <div class="form-group col-sm-4">
                 <label for="id">ID:</label>
-                <input type="text" id="id" class="form-control" name="idnum" placeholder="Enter Your ID">
+                <input type="text" id="id" onkeyup="verifyid()" class="form-control" name="idnum" placeholder="Enter Your ID">
             </div>
             <div class="form-group col-sm-4">
             </div>
@@ -18,11 +19,29 @@
             <div class="form-group col-sm-4">
             </div>
             <div class="form-group col-sm-4">
-                <input type="submit" name="submit" id="submitbutton" class="btn btn-success" value="Submit">
+                <label for="dd">Select Class:</label>
+                <select class="form-control" name="class" id="dd">
+                    <option value="cse1">CSE-01</option>
+                    <option value="cse2">CSE-02</option>
+                    <option value="cse3">CSE-03</option>
+                    <option value="cse4">CSE-04</option>
+                    <option value="cse5">CSE-05</option>
+                    <option value="cse6">CSE-06</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-4">
+            </div>
+            <div class="form-group col-sm-4">
+                <input type="submit" onclick="verifyid()" name="submit" id="submitbutton" class="btn btn-success" value="Submit">
             </div>
             <div class="form-group col-sm-4">
             </div>
         </div>
     </form>
+    <script src="{% static 'js/js.js' %}"></script>
 </body>
 {% endblock %}

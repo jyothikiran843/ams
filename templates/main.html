@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'nav.html' %}
+<ul class="list-group">
+    <h1>Class: {{ class }}</h1>
+    <li class="list-group-item">{{ id }}</li>
+</ul>
+
+{% endblock %}

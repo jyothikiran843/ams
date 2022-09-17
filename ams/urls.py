@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name="index"),
     path('main/',views.main,name="main"),
+    path('schedules/',views.set_schedule,name='schedules'),
+    path('show/',views.show_all,name='show')
 ]

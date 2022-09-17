@@ -1,0 +1,12 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a href="{% url 'index' %}" class="navbar-brand">Welcome,</a>
+    <button class="navbar-toggler" role="button" data-target="#nav-item-div" data-toggle="collapse"><img class="icons" src="sources/images/menu.png"></button>
+    <div class="collapse navbar-collapse" id="nav-item-div">
+        <ul class="navbar-nav ml-auto d-flex">
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Change Device</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'schedules' %}">Set Time Table</a></li>
+        </ul>
+    </div>
+</nav>
