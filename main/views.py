@@ -1,4 +1,7 @@
 from datetime import date, datetime,time,timedelta
+from msilib.schema import tables
+from multiprocessing import connection
+from time import strftime
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 import sqlite3
@@ -33,12 +36,14 @@ def main(request):
             # duration=timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=30, hours=1, weeks=0)
             now=datetime.now()
             day=now.strftime('%w')
-            # day='1'
+            day='6'
             hr=now.hour
-            # hr=13
+            hr=15
             min=now.minute
             if min<10:
                 min=str("0"+str(min))
+            elif min==0:
+                min='00'
             t=int(str(hr)+str(min))
             print(t)
             if t>=915 and t<1015:
@@ -56,15 +61,19 @@ def main(request):
             print(current_slot)
             connect()
             cursor.execute("SELECT id,name,class FROM details WHERE id='"+request.COOKIES['id']+"';")
+            global student
             student=cursor.fetchall()[0]
             if day=='0':
                 return render(request,'main.html',{'flag':'holiday','id':student[0],'name':student[1],'class':student[2]})
             else:
                 if check_table(request):
                     cursor.execute("SELECT * FROM "+request.COOKIES['class']+" WHERE week='"+ds[day]+"';")
-                    classes=cursor.fetchall()[0]
-                    if classes:
+                    classes=cursor.fetchall()
+                    if not classes:
+                        return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2]})
+                    elif classes:
                         print(classes)
+                        classes=classes[0]
                         subs=['cn','se','os','mfds','dm','selab','cnlab','englab','oslab']
                         slots_list=list(classes[1:])
                         slots=dict(zip(subs,slots_list))
@@ -122,7 +131,28 @@ def show_all(request):
 def attend(request):
     if request.method=='POST':
         subject=request.POST.get('Attend')
-        return HttpResponse(subject+"Attend Clicked")
+        now=datetime.now()
+        now=str("date"+now.strftime("%d%m%y"))
+        print(now)
+        connect()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables=cursor.fetchall()
+        if (subject,) in tables:
+            cols=cursor.execute("SELECT * FROM "+subject+";")
+            dates=[]
+            for i in cols.description:
+                dates.append(i[0])
+            print("date olumn:",dates)
+            if now in dates:
+                return attended(request,subject,now)
+            else:
+                cursor.execute("ALTER TABLE "+subject+" ADD COLUMN "+now+" varchar(20);")
+                conn.commit()
+                return attended(request,subject,now)
+        else:
+            cursor.execute("CREATE TABLE "+subject+"(id,class,"+now+");")
+            conn.commit()
+            return attended(request,subject,now)
     else:
         return HttpResponse("Bad Gateway")
 def query(request):
@@ -187,3 +217,16 @@ def check_table(request):
     else:
         print("not exists")
         return False
+def attended(request,subject,now):
+    # connect()
+    cursor.execute("SELECT "+now+" FROM "+subject+" WHERE id='"+request.COOKIES['id']+"';")
+    a=cursor.fetchall()
+    print(a)
+    if a:
+        print(a)
+        if a[0]==('1',):
+            print(a)
+            return render(request,'main.html',{'flag':'already','sub':subject,'name':student[1],'id':student[0],'class':student[2]})
+    cursor.execute("INSERT INTO "+subject+"(id,class,"+now+") VALUES('"+request.COOKIES['id']+"','"+request.COOKIES['class']+"','"+'1'+"');")
+    conn.commit()
+    return render(request,'main.html',{'flag':'attended','sub':subject,'name':student[1],'id':student[0],'class':student[2]})

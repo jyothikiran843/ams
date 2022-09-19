@@ -18,6 +18,18 @@
             </form>
         </div>
     </div>
+{% elif flag == 'already' %}
+    <div class="alert alert-warning">
+        <h3>Already attended for {{ sub }}</h3>
+    </div>
+{% elif flag == 'attended' %}
+    <div class="alert alert-success">
+        <h3>Successfully attended for {{ sub }}</h3>
+    </div>
+{% elif flag == 'fail' %}
+<div class="alert alert-danger">
+    <h3>Not attended for {{ sub }}</h3>
+</div>
 {% elif flag == 'se' %}
 <div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
     <div class="d-sm-inline">
