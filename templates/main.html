@@ -6,5 +6,119 @@
     <h1>Class: {{ class }}</h1>
     <li class="list-group-item">{{ id }}</li>
 </ul>
-
+{% if flag == 'cn' %}
+    <div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+        <div class="d-sm-inline">
+            <p class="d-sm-inline">Computer Networks</p>
+        </div>
+        <div class="d-sm-inline ml-auto">
+            <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success" name="Attend" value="cn">Attend</button>
+            </form>
+        </div>
+    </div>
+{% elif flag == 'se' %}
+<div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+    <div class="d-sm-inline">
+        <p class="d-sm-inline">Software Engineering</p>
+    </div>
+    <div class="d-sm-inline ml-auto">
+        <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="Attend" value="se">Attend</button>
+        </form>
+    </div>
+</div>
+{% elif flag == 'os' %}
+<div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+    <div class="d-sm-inline">
+        <p class="d-sm-inline">Operating Systems</p>
+    </div>
+    <div class="d-sm-inline ml-auto">
+        <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="Attend" value="os">Attend</button>
+        </form>
+    </div>
+</div>
+{% elif flag == 'mfds' %}
+<div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+    <div class="d-sm-inline">
+        <p class="d-sm-inline">Mathematical Fundamentals for DS</p>
+    </div>
+    <div class="d-sm-inline ml-auto">
+        <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="Attend" value="mfds">Attend</button>
+        </form>
+    </div>
+</div>
+{% elif flag == 'dm' %}
+<div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+    <div class="d-sm-inline">
+        <p class="d-sm-inline">Data Mining</p>
+    </div>
+    <div class="d-sm-inline ml-auto">
+        <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="Attend" value="dm">Attend</button>
+        </form>
+    </div>
+</div>
+{% elif flag == 'selab' %}
+<div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+    <div class="d-sm-inline">
+        <p class="d-sm-inline">Software Engineering Lab</p>
+    </div>
+    <div class="d-sm-inline ml-auto">
+        <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="Attend" value="selab">Attend</button>
+        </form>
+    </div>
+</div>
+{% elif flag == 'cnlab' %}
+<div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+    <div class="d-sm-inline">
+        <p class="d-sm-inline">Computer Networks Lab</p>
+    </div>
+    <div class="d-sm-inline ml-auto">
+        <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="Attend" value="cnlab">Attend</button>
+        </form>
+    </div>
+</div>
+{% elif flag == 'englab' %}
+<div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+    <div class="d-sm-inline">
+        <p class="d-sm-inline">English Lab</p>
+    </div>
+    <div class="d-sm-inline ml-auto">
+        <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="Attend" value="englab">Attend</button>
+        </form>
+    </div>
+</div>
+{% elif flag == 'oslab' %}
+<div class="container rounded bg-primary text-white d-inline-block p-3 mt-5 d-flex">
+    <div class="d-sm-inline">
+        <p class="d-sm-inline">Operating Systems Lab</p>
+    </div>
+    <div class="d-sm-inline ml-auto">
+        <form class="d-sm-inline" action="{% url 'attend' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="Attend" value="oslab">Attend</button>
+        </form>
+    </div>
+</div>
+{% elif flag == 'holiday' %}
+    <h1>Today's a Holiday Enjoy!!!!</h1>
+{% elif flag == 'no-slot' %}
+    <h2>No Slot Now</h2>
+{% else %}
+    <h1>Unknown Error</h1>
+{% endif %}
 {% endblock %}

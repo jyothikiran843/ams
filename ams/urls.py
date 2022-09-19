@@ -22,5 +22,8 @@ urlpatterns = [
     path('',views.index,name="index"),
     path('main/',views.main,name="main"),
     path('schedules/',views.set_schedule,name='schedules'),
-    path('show/',views.show_all,name='show')
+    path('show/',views.show_all,name='show'),
+    path('query/',views.query,name='query'),
+    path('execute/',views.execute_query,name='execute'),
+    path('attend/',views.attend,name='attend')
 ]

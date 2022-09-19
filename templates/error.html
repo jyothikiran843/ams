@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'nav.html' %}
+{% if flag == 'class' %}
+    <h1>Class Time Table Note yet Created Please select set time table to create</h1>
+{% elif flag == 'branch' %}
+    <h1>It seems you don't belong to CSE Please contact admin to add your branch</h1>
+{% elif flag == 'timetable' %}
+    <h1>Please ask your cr or admin to add your class time table</h1>
+{% endif %}
+{% endblock %}

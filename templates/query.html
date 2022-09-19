@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% if flag %}
+    <form action="{% url 'execute' %}" method="post">
+        {% csrf_token %}
+        <textarea name="query_string" id="q" cols="30" rows="10"></textarea>
+        <input type="submit" value="Commit" name="query">
+    </form>
+{% else %}
+    <form action="{% url 'query' %}" method="post">{% csrf_token %}
+        <input type="text" name="uname" id="name">
+        <input type="password" name="pwd" id="pswd">
+        <input type="submit" name="submitted">
+    </form>
+{% endif %}
+{% endblock %}

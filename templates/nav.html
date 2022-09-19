@@ -1,6 +1,7 @@
 {% load static %}
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a href="{% url 'index' %}" class="navbar-brand">Welcome,</a>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark container-fluid">
+    <img src="https://intranet.rguktn.ac.in/SMS/usrphotos/user/{{id}}.jpg" width="70px" height="70px" class="rounded-circle m-2" alt="profile">
+    <a href="{% url 'index' %}" class="navbar-brand">{% if name %}{{ name }}{% endif %}</a>
     <button class="navbar-toggler" role="button" data-target="#nav-item-div" data-toggle="collapse"><img class="icons" src="sources/images/menu.png"></button>
     <div class="collapse navbar-collapse" id="nav-item-div">
         <ul class="navbar-nav ml-auto d-flex">
