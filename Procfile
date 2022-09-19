@@ -1,1 +1,1 @@
-web: ams.wsgi 
+web: gunicorn ams.wsgi 
