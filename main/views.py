@@ -34,9 +34,9 @@ def main(request):
             # duration=timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=30, hours=1, weeks=0)
             now=datetime.now()
             day=now.strftime('%w')
-            day='6'
+            # day='6'
             hr=now.hour
-            hr=15
+            # hr=15
             min=now.minute
             if min<10:
                 min=str("0"+str(min))
