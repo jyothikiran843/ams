@@ -1,6 +1,4 @@
 from datetime import date, datetime,time,timedelta
-from msilib.schema import tables
-from multiprocessing import connection
 from time import strftime
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
