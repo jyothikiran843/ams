@@ -62,13 +62,13 @@ def main(request):
             global student
             student=cursor.fetchall()[0]
             if day=='0':
-                return render(request,'main.html',{'flag':'holiday','id':student[0],'name':student[1],'class':student[2]})
+                return render(request,'main.html',{'flag':'holiday','id':student[0],'name':student[1],'class':student[2],'date':now})
             else:
                 if check_table(request):
                     cursor.execute("SELECT * FROM "+request.COOKIES['class']+" WHERE week='"+ds[day]+"';")
                     classes=cursor.fetchall()
                     if not classes:
-                        return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2]})
+                        return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2],'date':now})
                     elif classes:
                         print(classes)
                         classes=classes[0]
@@ -78,18 +78,18 @@ def main(request):
                         print(len(subs),len(classes[1:]),subs,slots_list)
                         print(slots)
                         if current_slot=='0':
-                            return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2]})
+                            return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2],'date':now})
                         for i in slots.keys():
                             if slots[i]==current_slot:
                                 print(i)
-                                return render(request,'main.html',{'flag':i,'id':student[0],'name':student[1],'class':student[2]})
-                        return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2]})
+                                return render(request,'main.html',{'flag':i,'id':student[0],'name':student[1],'class':student[2],'date':now})
+                        return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2],'date':now})
                     else:
-                        return render(request,'error.html',{'flag':'timetable','id':student[0],'name':student[1],'class':student[2]})
+                        return render(request,'error.html',{'flag':'timetable','id':student[0],'name':student[1],'class':student[2],'date':now})
                 else:
                     create_table(request)
                     print("Table for "+request.COOKIES['class']+" is created")
-                    return render(request,'error.html',{'flag':'timetable','id':student[0],'name':student[1],'class':student[2]})
+                    return render(request,'error.html',{'flag':'timetable','id':student[0],'name':student[1],'class':student[2],'date':now})
         else:
             return redirect('/')
 
@@ -227,5 +227,5 @@ def attended(request,subject,now):
             return render(request,'main.html',{'flag':'already','sub':subject,'name':student[1],'id':student[0],'class':student[2]})
     cursor.execute("INSERT INTO "+subject+"(id,class,"+now+") VALUES('"+request.COOKIES['id']+"','"+request.COOKIES['class']+"','"+'1'+"');")
     conn.commit()
-    return render(request,'main.html',{'flag':'attended','sub':subject,'name':student[1],'id':student[0],'class':student[2]})
+    return render(request,'main.html',{'flag':'attended','sub':subject,'name':student[1],'id':student[0],'class':student[2],'date':now})
 print(datetime.now())
