@@ -228,3 +228,4 @@ def attended(request,subject,now):
     cursor.execute("INSERT INTO "+subject+"(id,class,"+now+") VALUES('"+request.COOKIES['id']+"','"+request.COOKIES['class']+"','"+'1'+"');")
     conn.commit()
     return render(request,'main.html',{'flag':'attended','sub':subject,'name':student[1],'id':student[0],'class':student[2]})
+print("hiiii")
