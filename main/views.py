@@ -1,4 +1,5 @@
 from datetime import date, datetime,time,timedelta
+import pytz
 from time import strftime
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
@@ -32,7 +33,7 @@ def main(request):
         if request.COOKIES.get('id',None):
             ds={'1':'m','2':'tu','3':'w','4':'th','5':'f','6':'s'}
             # duration=timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=30, hours=1, weeks=0)
-            now=datetime.now()
+            now=datetime.now(tz=pytz.timezone('Asia/Kolkata'))
             day=now.strftime('%w')
             # day='6'
             hr=now.hour
