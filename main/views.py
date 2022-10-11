@@ -1,9 +1,9 @@
-from datetime import date, datetime,time,timedelta
-from time import strftime
+from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-import sqlite3
+from django.db import connection
 
+cursor=connection.cursor()
 response=HttpResponse()
 # Create your views here.
 def index(request):
@@ -17,7 +17,7 @@ def main(request):
         if request.COOKIES.get('id',None):
             return HttpResponse("Hi "+request.COOKIES['id'].upper())
         else:
-           connect()
+        #    connect()
            cursor.execute("SELECT class FROM details WHERE id='"+request.POST['idnum']+"';")
            c=cursor.fetchall()
            if c:
@@ -38,6 +38,16 @@ def main(request):
             hr=now.hour
             # hr=15
             min=now.minute
+            #connect()
+            cursor.execute("SELECT id,name,class FROM details WHERE id='"+request.COOKIES['id']+"';")
+            global student
+            student=cursor.fetchall()[0]
+            global data1
+            data1={'flag':'holiday','id':student[0],'name':student[1],'class':student[2],'date':now}
+            data1['order']=[1,4,5,3,0,2]
+            if check_table(request):
+                cursor.execute("SELECT * FROM "+request.COOKIES['class']+";")
+                data1['schedule']=list(cursor.fetchall())
             if min<10:
                 min=str("0"+str(min))
             elif min==0:
@@ -57,18 +67,15 @@ def main(request):
             else:
                 current_slot="0"
             print(current_slot)
-            connect()
-            cursor.execute("SELECT id,name,class FROM details WHERE id='"+request.COOKIES['id']+"';")
-            global student
-            student=cursor.fetchall()[0]
             if day=='0':
-                return render(request,'main.html',{'flag':'holiday','id':student[0],'name':student[1],'class':student[2],'date':now})
+                return render(request,'main.html',data1)
             else:
                 if check_table(request):
                     cursor.execute("SELECT * FROM "+request.COOKIES['class']+" WHERE week='"+ds[day]+"';")
                     classes=cursor.fetchall()
                     if not classes:
-                        return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2],'date':now})
+                        data1['flag']='no-slot'
+                        return render(request,'main.html',data1)
                     elif classes:
                         print(classes)
                         classes=classes[0]
@@ -78,18 +85,22 @@ def main(request):
                         print(len(subs),len(classes[1:]),subs,slots_list)
                         print(slots)
                         if current_slot=='0':
-                            return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2],'date':now})
+                            data1['flag']='no-slot'
+                            return render(request,'main.html',data1)
                         for i in slots.keys():
                             if slots[i]==current_slot:
-                                print(i)
-                                return render(request,'main.html',{'flag':i,'id':student[0],'name':student[1],'class':student[2],'date':now})
-                        return render(request,'main.html',{'flag':'no-slot','id':student[0],'name':student[1],'class':student[2],'date':now})
+                                data1['flag']=i
+                                return render(request,'main.html',data1)
+                        data1['flag']='no-slot'
+                        return render(request,'main.html',data1)
                     else:
-                        return render(request,'error.html',{'flag':'timetable','id':student[0],'name':student[1],'class':student[2],'date':now})
+                        data1['flag']='timetable'
+                        return render(request,'error.html',data1)
                 else:
                     create_table(request)
                     print("Table for "+request.COOKIES['class']+" is created")
-                    return render(request,'error.html',{'flag':'timetable','id':student[0],'name':student[1],'class':student[2],'date':now})
+                    data1['flag']='timetable'
+                    return render(request,'error.html',data1)
         else:
             return redirect('/')
 
@@ -99,7 +110,7 @@ def set_schedule(request):
             if request.method=='POST':
                 if check_table(request):
                     cursor.execute("DELETE FROM "+request.COOKIES['class']+";")
-                    conn.commit()
+                    connection.commit()
                     insert_data(request)
                     print('table updates')
                 else:
@@ -118,7 +129,7 @@ def set_schedule(request):
         return redirect('/')
 def show_all(request):
     if request.COOKIES.get('class',None):
-        connect()
+        # connect()
         cursor.execute("SELECT * FROM "+request.COOKIES['class']+";")
         print("SELECT * FROM "+request.COOKIES['class']+";")
         print("Heree are details")
@@ -132,24 +143,24 @@ def attend(request):
         now=datetime.now()
         now=str("date"+now.strftime("%d%m%y"))
         print(now)
-        connect()
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        # connect()
+        cursor.execute("SHOW TABLES;")
         tables=cursor.fetchall()
         if (subject,) in tables:
-            cols=cursor.execute("SELECT * FROM "+subject+";")
+            cursor.execute("SHOW COLUMNS FROM "+subject+";")
             dates=[]
-            for i in cols.description:
+            for i in cursor.fetchall():
                 dates.append(i[0])
             print("date olumn:",dates)
             if now in dates:
                 return attended(request,subject,now)
             else:
                 cursor.execute("ALTER TABLE "+subject+" ADD COLUMN "+now+" varchar(20);")
-                conn.commit()
+                connection.commit()
                 return attended(request,subject,now)
         else:
-            cursor.execute("CREATE TABLE "+subject+"(id,class,"+now+");")
-            conn.commit()
+            cursor.execute("CREATE TABLE "+subject+"(id varchar(10),class varchar(10),"+now+" varchar(20));")
+            connection.commit()
             return attended(request,subject,now)
     else:
         return HttpResponse("Bad Gateway")
@@ -164,10 +175,10 @@ def query(request):
 def execute_query(request):
     if request.method=='POST':
         if request.POST.get('query')=='Commit':
-            connect()
+            # connect()
             cursor.execute(request.POST['query_string'])
             print(cursor.fetchall())
-            conn.commit()
+            connection.commit()
             if(cursor):
                 return HttpResponse("Success")
             else:
@@ -177,36 +188,36 @@ def execute_query(request):
     else:
         return HttpResponse("Bad Gateway")
 def create_table(request):
-    global cursor,conn
+    # global cursor,conn
     cursor.execute("CREATE TABLE "+request.COOKIES['class']+"(week varchar(10) NOT NULL PRIMARY KEY,cn varchar(1),se varchar(1),os varchar(1),mfds varchar(1),dm varchar(1),selab varchar(1),cnlab varchar(1),englab varchar(1),oslab varchar(1));")
-    conn.commit()
+    connection.commit()
 def insert_data(request):
-    global cursor,conn
+    # global cursor,conn
     query="INSERT INTO "+request.COOKIES['class']+" VALUES('m',"+request.POST.get('mcnslot')+","+request.POST.get('mseslot')+","+request.POST.get('mosslot')+","+request.POST.get('mmfdsslot')+","+request.POST.get('mdmslot')+","+request.POST.get('mselslot')+","+request.POST.get('mcnlslot')+","+request.POST.get('melslot')+","+request.POST.get('moslslot')+");"
     cursor.execute(query)
-    conn.commit()
+    connection.commit()
     query="INSERT INTO "+request.COOKIES['class']+" VALUES('tu',"+request.POST.get('tucnslot')+","+request.POST.get('tuseslot')+","+request.POST.get('tuosslot')+","+request.POST.get('tumfdsslot')+","+request.POST.get('tudmslot')+","+request.POST.get('tuselslot')+","+request.POST.get('tucnlslot')+","+request.POST.get('tuelslot')+","+request.POST.get('tuoslslot')+");"
     cursor.execute(query)
-    conn.commit()
+    connection.commit()
     query="INSERT INTO "+request.COOKIES['class']+" VALUES('w',"+request.POST.get('wcnslot')+","+request.POST.get('wseslot')+","+request.POST.get('wosslot')+","+request.POST.get('wmfdsslot')+","+request.POST.get('wdmslot')+","+request.POST.get('wselslot')+","+request.POST.get('wcnlslot')+","+request.POST.get('welslot')+","+request.POST.get('woslslot')+");"
     cursor.execute(query)
-    conn.commit()
+    connection.commit()
     query="INSERT INTO "+request.COOKIES['class']+" VALUES('th',"+request.POST.get('thcnslot')+","+request.POST.get('thseslot')+","+request.POST.get('thosslot')+","+request.POST.get('thmfdsslot')+","+request.POST.get('thdmslot')+","+request.POST.get('thselslot')+","+request.POST.get('thcnlslot')+","+request.POST.get('thelslot')+","+request.POST.get('thoslslot')+");"
     cursor.execute(query)
-    conn.commit()
+    connection.commit()
     query="INSERT INTO "+request.COOKIES['class']+" VALUES('f',"+request.POST.get('fcnslot')+","+request.POST.get('fseslot')+","+request.POST.get('fosslot')+","+request.POST.get('fmfdsslot')+","+request.POST.get('fdmslot')+","+request.POST.get('fselslot')+","+request.POST.get('fcnlslot')+","+request.POST.get('felslot')+","+request.POST.get('foslslot')+");"
     cursor.execute(query)
-    conn.commit()
+    connection.commit()
     query="INSERT INTO "+request.COOKIES['class']+" VALUES('s',"+request.POST.get('scnslot')+","+request.POST.get('sseslot')+","+request.POST.get('sosslot')+","+request.POST.get('smfdsslot')+","+request.POST.get('sdmslot')+","+request.POST.get('sselslot')+","+request.POST.get('scnlslot')+","+request.POST.get('selslot')+","+request.POST.get('soslslot')+");"
     cursor.execute(query)
-    conn.commit()
-def connect():
-    global conn,cursor
-    conn=sqlite3.connect('db.sqlite3')
-    cursor=conn.cursor()
+    connection.commit()
+# def connect():
+#     global conn,cursor
+#     conn=sqlite3.connect('db.sqlite3')
+#     cursor=conn.cursor()
 def check_table(request):
-    connect()
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    # connect()
+    cursor.execute("SHOW TABLES;")
     tables=cursor.fetchall()
     print(tables)
     if (request.COOKIES['class'],) in tables:
@@ -224,8 +235,10 @@ def attended(request,subject,now):
         print(a)
         if a[0]==('1',):
             print(a)
-            return render(request,'main.html',{'flag':'already','sub':subject,'name':student[1],'id':student[0],'class':student[2]})
+            data1['flag']='already'
+            data1['sub']=subject
+            return render(request,'main.html',data1)
     cursor.execute("INSERT INTO "+subject+"(id,class,"+now+") VALUES('"+request.COOKIES['id']+"','"+request.COOKIES['class']+"','"+'1'+"');")
-    conn.commit()
+    connection.commit()
     return render(request,'main.html',{'flag':'attended','sub':subject,'name':student[1],'id':student[0],'class':student[2],'date':now})
 print(datetime.now())

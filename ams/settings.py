@@ -75,13 +75,24 @@ WSGI_APPLICATION = 'ams.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE':'django.db.backends.mysql',
+        'NAME':'db_a8e031_ams',
+        'USER':'a8e031_ams',
+        'PASSWORD':'freefire@143',
+        'HOST':'mysql5044.site4now.net',
+    }
+}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE':'django.db.backends.mysql',
+#         'NAME':'ams',
+#         'USER':'root',
+#         'PASSWORD':'',
+#         'HOST':'127.0.0.1',
 #     }
 # }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
